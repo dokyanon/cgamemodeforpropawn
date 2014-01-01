@@ -1,0 +1,114 @@
+/*
+	Copyright (c) 2014, Пельмень. All rights reserved.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; version 2 of the License.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+*/
+
+#include "CPlayer.h"
+#include "CServer.h"
+#include "CObject.h"
+#include "CMysql.h"
+#include "md5.h"
+
+typedef void (*logprintf_t)(char* format, ...);
+logprintf_t logprintf;
+
+void Events::OnGameModeInit() {
+	Server.SetGameModeText("C++ Game Mode for Pro-Pawn.Ru");
+	MySQL.Connect();
+}
+
+void Events::OnDialogResponse (int playerid, int dialogid, int response, int listitem, char* inputtext) {
+	int len = strlen (inputtext);
+	if (dialogid == 1) {
+		if (response) {
+			if (len < 4 || len > 16) {
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Длинна пароля не может быть меньше 4 и больше 16 сиволов");
+				Player[playerid].ShowDialog (1, 1, "{FFFFFF}Регистрация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s не зарегистрирован\nПридумайте пароль и введите его").c_str(), "Продолжить", "Выйти");
+				return;
+			}
+			MySQL.Query (Server.string_format("Insert Into `users` (Name, Password, Level, Money, Skin) Values ('%s', '%s', '1', '250', '23')", Player[playerid].GetName(), md5(inputtext).c_str()).c_str());
+			Player[playerid].auth = true;
+			Player[playerid].GiveMoney(Player[playerid].Money);
+			Player[playerid].SetScore(Player[playerid].Level);
+			Player[playerid].SetSkin(Player[playerid].Skin);
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы успешно зарегистрировались на сервере Pro-Pawn.Ru, приятной игры!");
+			Player[playerid].SpawnInfo(1958.3783f, 1343.1572f, 15.3746f, 269.1425f);
+			Player[playerid].Spawn();
+		} else {
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо зарегистрироваться!");
+			Player[playerid].Kick();
+		}
+	}
+	if (dialogid == 2) {
+		if (response) {
+			if (len < 4 || len > 16) {
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Длинна пароля не может быть меньше 4 и больше 16 сиволов");
+				Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+				return;
+			}
+			MySQL.Query (Server.string_format("Select * From `users` Where `Name` = \'%s\' And `Password` = \'%s\'", Player[playerid].GetName(), md5(inputtext).c_str()).c_str());
+			MySQL.Store();
+			if (MySQL.NumRows() == 0) {
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы ввели не верный пароль, повторите попытку!");
+				Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+				return;
+			} else {
+				if ((MySQL.row = mysql_fetch_row (MySQL.result)) != NULL) {
+					Player[playerid].SetScore(Player[playerid].Level = atoi (MySQL.row[3]));
+					Player[playerid].GiveMoney(Player[playerid].Money = atoi (MySQL.row[4]));
+					Player[playerid].SetSkin(Player[playerid].Skin = atoi (MySQL.row[5]));
+				}
+				Player[playerid].auth = true;
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы успешно авторизовались на сервере Pro-Pawn.Ru, приятной игры!");
+				Player[playerid].SpawnInfo(1958.3783f, 1343.1572f, 15.3746f, 269.1425f);
+				Player[playerid].Spawn();
+			}
+			MySQL.Free();
+		} else {
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо авторизоваться!");
+			Player[playerid].Kick();
+		}
+	}
+}
+
+void Events::OnGameModeExit() {
+	for (set<int>::iterator itr = OnlinePlayers.begin(); itr != OnlinePlayers.end(); ++itr) {
+		Player [*itr].Disconnect();
+	}
+	MySQL.Close();
+}
+
+void Events::OnPlayerConnect (int playerid) {
+	Player[playerid].SendPlayerMessage (0xFFFFFF00, Server.string_format("Уважаемый %s Приветствуем вас на сервере Pro-Pawn.Ru", Player[playerid].GetName()).c_str());
+
+	MySQL.Query (Server.string_format("Select `Name` From `users` Where `Name` = \'%s\'", Player[playerid].GetName()).c_str());
+	MySQL.Store();
+	if (MySQL.NumRows () == 1) {
+		Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+	} else {
+		Player[playerid].ShowDialog (1, 1, "{FFFFFF}Регистрация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s не зарегистрирован\nПридумайте пароль и введите его").c_str(), "Продолжить", "Выйти");
+	}
+	MySQL.Free();
+}
+
+void Events::OnPlayerSpawn (int playerid) {
+	if (!Player[playerid].auth) {
+		Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо авторизоваться!");
+		Player[playerid].Kick();
+	}
+}
+
+void Events::OnPlayerDisconnect (int playerid, int reason) {
+	Player[playerid].Disconnect();
+}
