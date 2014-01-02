@@ -1,17 +1,18 @@
 /*
-	Copyright (c) 2014, Пельмень. All rights reserved.
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; version 2 of the License.
+Copyright (C) 2014  РџРµР»СЊРјРµРЅСЊ.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-	GNU General Public License for more details.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "CPlayer.h"
@@ -33,8 +34,8 @@ void Events::OnDialogResponse (int playerid, int dialogid, int response, int lis
 	if (dialogid == 1) {
 		if (response) {
 			if (len < 4 || len > 16) {
-				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Длинна пароля не может быть меньше 4 и больше 16 сиволов");
-				Player[playerid].ShowDialog (1, 1, "{FFFFFF}Регистрация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s не зарегистрирован\nПридумайте пароль и введите его").c_str(), "Продолжить", "Выйти");
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 4 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 16 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+				Player[playerid].ShowDialog (1, 1, "{FFFFFF}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", Server.string_format("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Pro-Pawn.Ru\n\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ").c_str(), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ");
 				return;
 			}
 			MySQL.Query (Server.string_format("Insert Into `users` (Name, Password, Level, Money, Skin) Values ('%s', '%s', '1', '250', '23')", Player[playerid].GetName(), md5(inputtext).c_str()).c_str());
@@ -42,26 +43,26 @@ void Events::OnDialogResponse (int playerid, int dialogid, int response, int lis
 			Player[playerid].GiveMoney(Player[playerid].Money);
 			Player[playerid].SetScore(Player[playerid].Level);
 			Player[playerid].SetSkin(Player[playerid].Skin);
-			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы успешно зарегистрировались на сервере Pro-Pawn.Ru, приятной игры!");
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Pro-Pawn.Ru, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ!");
 			Player[playerid].SpawnInfo(1958.3783f, 1343.1572f, 15.3746f, 269.1425f);
 			Player[playerid].Spawn();
 		} else {
-			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо зарегистрироваться!");
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
 			Player[playerid].Kick();
 		}
 	}
 	if (dialogid == 2) {
 		if (response) {
 			if (len < 4 || len > 16) {
-				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Длинна пароля не может быть меньше 4 и больше 16 сиволов");
-				Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 4 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 16 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+				Player[playerid].ShowDialog (2, 1, "{FFFFFF}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", Server.string_format("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Pro-Pawn.Ru\n\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ").c_str(), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ");
 				return;
 			}
 			MySQL.Query (Server.string_format("Select * From `users` Where `Name` = \'%s\' And `Password` = \'%s\'", Player[playerid].GetName(), md5(inputtext).c_str()).c_str());
 			MySQL.Store();
 			if (MySQL.NumRows() == 0) {
-				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы ввели не верный пароль, повторите попытку!");
-				Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
+				Player[playerid].ShowDialog (2, 1, "{FFFFFF}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", Server.string_format("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Pro-Pawn.Ru\n\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ").c_str(), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ");
 				return;
 			} else {
 				if ((MySQL.row = mysql_fetch_row (MySQL.result)) != NULL) {
@@ -70,13 +71,13 @@ void Events::OnDialogResponse (int playerid, int dialogid, int response, int lis
 					Player[playerid].SetSkin(Player[playerid].Skin = atoi (MySQL.row[5]));
 				}
 				Player[playerid].auth = true;
-				Player[playerid].SendPlayerMessage (0xFFFFFF00, "Вы успешно авторизовались на сервере Pro-Pawn.Ru, приятной игры!");
+				Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Pro-Pawn.Ru, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ!");
 				Player[playerid].SpawnInfo(1958.3783f, 1343.1572f, 15.3746f, 269.1425f);
 				Player[playerid].Spawn();
 			}
 			MySQL.Free();
 		} else {
-			Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо авторизоваться!");
+			Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
 			Player[playerid].Kick();
 		}
 	}
@@ -90,21 +91,21 @@ void Events::OnGameModeExit() {
 }
 
 void Events::OnPlayerConnect (int playerid) {
-	Player[playerid].SendPlayerMessage (0xFFFFFF00, Server.string_format("Уважаемый %s Приветствуем вас на сервере Pro-Pawn.Ru", Player[playerid].GetName()).c_str());
+	Player[playerid].SendPlayerMessage (0xFFFFFF00, Server.string_format("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ Pro-Pawn.Ru", Player[playerid].GetName()).c_str());
 
 	MySQL.Query (Server.string_format("Select `Name` From `users` Where `Name` = \'%s\'", Player[playerid].GetName()).c_str());
 	MySQL.Store();
 	if (MySQL.NumRows () == 1) {
-		Player[playerid].ShowDialog (2, 1, "{FFFFFF}Авторизация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s зарегистрирован\nВведите пароль от аккаунта").c_str(), "Продолжить", "Выйти");
+		Player[playerid].ShowDialog (2, 1, "{FFFFFF}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", Server.string_format("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Pro-Pawn.Ru\n\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ").c_str(), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ");
 	} else {
-		Player[playerid].ShowDialog (1, 1, "{FFFFFF}Регистрация", Server.string_format("Добро пожаловать на Pro-Pawn.Ru\n\nАккаунт %s не зарегистрирован\nПридумайте пароль и введите его").c_str(), "Продолжить", "Выйти");
+		Player[playerid].ShowDialog (1, 1, "{FFFFFF}пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", Server.string_format("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ Pro-Pawn.Ru\n\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ %s пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ").c_str(), "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅ");
 	}
 	MySQL.Free();
 }
 
 void Events::OnPlayerSpawn (int playerid) {
 	if (!Player[playerid].auth) {
-		Player[playerid].SendPlayerMessage (0xFFFFFF00, "Необходимо авторизоваться!");
+		Player[playerid].SendPlayerMessage (0xFFFFFF00, "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
 		Player[playerid].Kick();
 	}
 }
