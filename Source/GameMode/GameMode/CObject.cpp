@@ -16,7 +16,7 @@ Copyright (C) 2014  Пельмень.
 */
 
 #include "CObject.h"
-CObject *Object;
+CObject Object;
 
 void CObject::Create (int modelid, float x, float y, float z, float rx, float ry, float rz, float drawDistance) {
 	g_Invoke->callNative(&PAWN::CreateObject, modelid, x, y, z, rx, ry, rz, drawDistance);
