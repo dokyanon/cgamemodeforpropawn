@@ -1,17 +1,18 @@
 /*
-	Copyright (c) 2014, Пельмень. All rights reserved.
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; version 2 of the License.
+Copyright (C) 2014  РџРµР»СЊРјРµРЅСЊ.
 
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-	GNU General Public License for more details.
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "CServer.h"
@@ -121,10 +122,10 @@ PLUGIN_EXPORT int PLUGIN_CALL AmxLoad(AMX *amx)
 ----------------------------------\n\
 Running Pro-Pawn.Ru GameMode\n\
 	Coded By\n\
-		Пельмень\n\
+		пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\n\
 ----------------------------------\n\n\
 \
-Copyright (c) 2014, Пельмень. All rights reserved.\n\
+Copyright (c) 2014, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. All rights reserved.\n\
 This program is free software; you can redistribute it and/or modify\n\
 it under the terms of the GNU General Public License as published by\n\
 the Free Software Foundation; version 2 of the License.\n\
@@ -156,6 +157,6 @@ PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX *amx)
         }
     }
 	if (g_Invoke) delete g_Invoke;
-	logprintf ("GameMode for Pro-Pawn.Ru by Пельмень Unloaded!");
+	logprintf ("GameMode for Pro-Pawn.Ru by пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Unloaded!");
     return AMX_ERR_NONE;
 }
